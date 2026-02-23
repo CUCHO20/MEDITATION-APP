@@ -1,4 +1,4 @@
-import { Gradient } from "@/components/ui/gradient"
+import { Gradient } from "@/components/ui/Gradient"
 import { StyleSheet, Text, View } from "react-native"
 
 interface FormProps {
