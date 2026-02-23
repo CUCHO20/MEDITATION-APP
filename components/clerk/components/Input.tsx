@@ -1,7 +1,5 @@
 // @ts-ignore - Ignoring missing type declarations for @expo/vector-icons
-import { Ionicons } from '@expo/vector-icons';
 import { StyleSheet, Text, TextInput, TextInputProps, View } from 'react-native';
-import TextButton from './TextButton';
 
 interface AlternateAction {
   text: string;
@@ -55,6 +53,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   input: {
+    color: '#27272a',
     height: 44,
     borderWidth: 1,
     borderColor: '#E0E0E0',
@@ -77,7 +76,7 @@ const styles = StyleSheet.create({
     marginLeft: 4,
   },
   alternateActionText: {
-    color: '#5e41f7',
+    color: '#71717b',
     fontWeight: '500',
     marginLeft: 4,
   },

@@ -1,16 +1,15 @@
-import Form from '../components/Form'
-import Input from '../components/Input'
-import ContinueButton from '../components/ContinueButton'
-import ErrorText from '../components/ErrorText'
-import { useClerk, useSignIn } from "@clerk/clerk-expo";
-import { EnvironmentResource } from "@clerk/types";
+import { useSignIn } from "@clerk/clerk-expo";
 import { Ionicons } from "@expo/vector-icons";
 import { ReactNode, useState } from "react";
 import {
   StyleSheet,
   Text,
   TouchableOpacity,
-} from "react-native";  
+} from "react-native";
+import ContinueButton from '../components/ContinueButton';
+import ErrorText from '../components/ErrorText';
+import Form from '../components/Form';
+import Input from '../components/Input';
 import TextButton from '../components/TextButton';
 
 // Safely import expo-router
@@ -73,7 +72,7 @@ function EnterPasswordForm({
       style={styles.emailAddressContainer}
     >
       <Text style={styles.emailAddressText}>
-        {emailAddress} <Ionicons name="pencil-outline" size={16} color="#5e41f7" />
+        {emailAddress} <Ionicons name="pencil-outline" size={16} color="#71717b" />
       </Text>
     </TouchableOpacity>
   )
@@ -119,18 +118,18 @@ const styles = StyleSheet.create({
       justifyContent: "center",
       padding: 0,
       marginBottom: 24,
-      color: "#5e41f7",
+      color: "#71717b",
     },
     switchModeButton: {
       alignItems: "center",
       justifyContent: "center",
       marginTop: 24,
       padding: 8,
-      color: "#5e41f7",
+      color: "#71717b",
     },
     switchModeText: {
       fontSize: 16,
-      color: "#5e41f7",
+      color: "#71717b",
       fontWeight: "500",
     },
     disabledButton: {
@@ -147,7 +146,7 @@ const styles = StyleSheet.create({
     },
     alternateMethodText: {
       fontSize: 16,
-      color: "#5e41f7",
+      color: "#71717b",
       fontWeight: "500",
     },
   });

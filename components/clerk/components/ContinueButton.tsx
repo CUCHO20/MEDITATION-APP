@@ -1,7 +1,7 @@
-import React from 'react'
-import { Button } from './Button'
-import { StyleProp, Text, TouchableOpacityProps, ViewStyle, StyleSheet } from 'react-native'
 import { Ionicons } from '@expo/vector-icons';
+import React from 'react';
+import { StyleProp, StyleSheet, Text, TouchableOpacityProps, ViewStyle } from 'react-native';
+import { Button } from './Button';
 
 interface Props extends TouchableOpacityProps {
   style?: StyleProp<ViewStyle>;
@@ -18,10 +18,10 @@ function ContinueButton({ style, ...props }: Props) {
 
 const styles = StyleSheet.create({
   text: {
-    color: '#fbfaff'
+    color: '#f4f4f5' // 100
   },
   icon: {
-    color: '#c5bbfc'
+    color: '#f4f4f5' // 100
   },
 });
 
