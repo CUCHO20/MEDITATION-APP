@@ -1,10 +1,11 @@
 import { sessions } from "@/utils/sessions";
 import { useUser } from "@clerk/clerk-expo";
 import { useConversation } from "@elevenlabs/react-native";
+import * as Brightness from 'expo-brightness';
 import { useLocalSearchParams } from "expo-router";
 import { useState } from "react";
 import { Text, View } from "react-native";
-import Button from "../ui/Button";
+import { Button } from "../ui/Button";
 import { Gradient } from "../ui/Gradient";
 
 export default function SessionScreen() {
@@ -28,6 +29,19 @@ export default function SessionScreen() {
         onCanSendFeedbackChange: (prop) => console.log('Can send feedback changed:', prop.canSendFeedback),
         onUnhandledClientToolCall: (params) => console.log('Unhandled client tool call:', params),
         onAudioAlignment: (alignment) => console.log('Alignment data received:', alignment),
+
+        clientTools: {
+            handleSetBrightness: async (parameters: unknown) => {
+                const { brightnessValue } = parameters as { brightnessValue: number };
+                console.log('Adjusting brightness to:', { brightnessValue });
+                
+                const { status } = await Brightness.requestPermissionsAsync();
+                if (status === 'granted') {
+                    await Brightness.setSystemBrightnessAsync(brightnessValue);
+                    return brightnessValue;
+                }
+            },
+        },
     });
 
     const [convStatus, setConvStatus] = useState(conversation.status);
@@ -81,7 +95,6 @@ export default function SessionScreen() {
             />
 
             <View style={{ flex: 1, justifyContent: "center", alignItems: "center", gap: 20 }}>
-                <Text>Session Screen</Text>
                 <Text style={{ fontSize: 32, fontWeight: "bold" }}>{session.title}</Text>
                 <Text style={{ fontSize: 16, textAlign: "center" }}>{session.description}</Text>
 

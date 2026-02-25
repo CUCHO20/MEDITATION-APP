@@ -2,14 +2,14 @@ import { zinc } from '@/utils/colors';
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
 import {
-    ActivityIndicator,
-    GestureResponderEvent,
-    StyleSheet,
-    Text,
-    TextStyle,
-    TouchableOpacity,
-    TouchableOpacityProps,
-    ViewStyle,
+  ActivityIndicator,
+  GestureResponderEvent,
+  StyleSheet,
+  Text,
+  TextStyle,
+  TouchableOpacity,
+  TouchableOpacityProps,
+  ViewStyle,
 } from 'react-native';
 
 type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'muted';
@@ -27,7 +27,7 @@ interface ButtonProps extends Omit<TouchableOpacityProps, 'onPress'> {
   textStyle?: TextStyle;
 }
 
-export default function Button({
+export function Button({
   variant = 'primary',
   size = 'md',
   loading = false,
