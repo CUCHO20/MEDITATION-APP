@@ -2,7 +2,7 @@ import { sessions } from "@/utils/sessions";
 import { useUser } from "@clerk/clerk-expo";
 import { useConversation } from "@elevenlabs/react-native";
 import * as Brightness from 'expo-brightness';
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import { Text, View } from "react-native";
 import { Button } from "../ui/Button";
@@ -11,6 +11,7 @@ import { Gradient } from "../ui/Gradient";
 export default function SessionScreen() {
     const { user } = useUser();
     const { sessionId } = useLocalSearchParams();
+    const router = useRouter();
     const session = sessions.find((s) => s.id === Number(sessionId)) ?? sessions[0];
 
     const conversation = useConversation({
@@ -58,7 +59,7 @@ export default function SessionScreen() {
         setIsStarting(true);
         try {
             await conversation.startSession({
-            agentId: process.env.EXPO_PUBLIC_AGENT,
+            agentId: process.env.EXPO_PUBLIC_AGENT_ID,
             dynamicVariables: {
                 user_name: user?.username || "User",
                 session_title: session.title,
@@ -73,6 +74,10 @@ export default function SessionScreen() {
         } else if (isConnectedOrConnecting) {
         try {
             await conversation.endSession();
+            router.push({
+                pathname: "/summary",
+                params: { conversationId },
+            })
         } catch (error) {
             console.error('Failed to end:', error);
         }
