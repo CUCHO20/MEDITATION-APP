@@ -2,6 +2,7 @@ import { ConversationResponse } from "@/utils/types";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { Button } from "../ui/Button";
 import { Gradient } from "../ui/Gradient";
 
@@ -29,57 +30,61 @@ export default function SummaryScreen() {
     return (
         <>
             <Gradient position="bottom" isSpeaking={false} />
-            <ScrollView
-                contentInsetAdjustmentBehavior="automatic"
-                contentContainerStyle={{ paddingHorizontal: 16 }}
-            >
-                {conversation?.status !== "done" && (
+            <SafeAreaView style={{ flex: 1 }} edges={['top']}>
+                <ScrollView
+                    style={{ flex: 1 }}
+                    contentContainerStyle={{
+                    paddingHorizontal: 16,
+                    paddingBottom: 40,
+                    }}
+                    showsVerticalScrollIndicator={false}
+                >
+                    {conversation?.status !== "done" && (
                     <View style={{ gap: 16, paddingBottom: 16 }}>
                         <Text style={styles.title}>We are processing your conversation summary...</Text>
                         <Text style={styles.subtitle}>This may take a few moments.</Text>
                         <Text style={styles.subtitle}>
-                            Current status: {conversation?.status}
+                        Current status: {conversation?.status}
                         </Text>
-                        <Button
-                            variant="secondary"
-                            onPress={getSummary}
-                        >
-                            Refresh
+                        <Button variant="secondary" onPress={getSummary}>
+                        Refresh
                         </Button>
                     </View>
-                )}
-                {conversation?.status === "done" && (
+                    )}
+
+                    {conversation?.status === "done" && (
                     <View style={{ gap: 16, paddingBottom: 16 }}>
                         <Text style={styles.caption}>{conversationId}</Text>
                         <Text style={styles.title}>
-                            {conversation?.analysis?.call_summary_title}
+                        {conversation?.analysis?.call_summary_title}
                         </Text>
                         <Text style={styles.subtitle}>
-                            {conversation?.analysis?.transcript_summary.trim()}
+                        {conversation?.analysis?.transcript_summary.trim()}
                         </Text>
 
                         <Text style={styles.title}>Stats</Text>
                         <Text style={styles.subtitle}>
-                            {conversation?.metadata?.call_duration_secs} seconds
+                        {conversation?.metadata?.call_duration_secs} seconds
                         </Text>
                         <Text style={styles.subtitle}>
-                            {conversation?.metadata?.cost} tokens
+                        {conversation?.metadata?.cost} tokens
                         </Text>
                         <Text style={styles.subtitle}>
-                            {new Date(
-                                conversation?.metadata?.start_time_unix_secs! * 1000
-                            ).toLocaleString()}
+                        {new Date(conversation?.metadata?.start_time_unix_secs! * 1000).toLocaleString()}
                         </Text>
+
                         <Text style={styles.title}>Transcript</Text>
                         <Text style={styles.subtitle}>
-                            {conversation?.transcript.map((t) => t.message).join("\n")}
+                        {conversation?.transcript.map((t) => t.message).join("\n")}
                         </Text>
                     </View>
-                )}
-                <View style={{ alignItems: "center", paddingVertical: 16 }}>
+                    )}
+
+                    <View style={{ alignItems: "center", paddingVertical: 24 }}>
                     <Button onPress={() => router.dismissAll()}>Close</Button>
-                </View>
-            </ScrollView>
+                    </View>
+                </ScrollView>
+                </SafeAreaView>
         </>
     );
 }
